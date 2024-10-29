@@ -173,7 +173,7 @@ function handleSubmit() {
         responseState.value = "error";
       }
 
-      process.value = false;
+      processing.value = false;
     })
     .catch((e) => console.error(e));
 }
