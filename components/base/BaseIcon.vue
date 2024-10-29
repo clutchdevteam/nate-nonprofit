@@ -17,6 +17,7 @@ import PhoneIcon from "@/components/icons/PhoneIcon.vue";
 import PersonIcon from "@/components/icons/PersonIcon.vue";
 import PeopleIcon from "@/components/icons/PeopleIcon.vue";
 import QuotesIcon from "@/components/icons/QuotesIcon.vue";
+import SpinnerIcon from "@/components/icons/SpinnerIcon.vue";
 
 const props = defineProps({
   file: {
@@ -47,6 +48,10 @@ const iconComponent = computed(() => {
       return PeopleIcon;
     case "QuotesIcon":
       return QuotesIcon;
+    case "SpinnerIcon":
+      return SpinnerIcon;
+    default:
+      return null;
   }
 });
 </script>

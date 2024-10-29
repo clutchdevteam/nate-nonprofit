@@ -66,7 +66,19 @@
               </BaseTextarea>
 
               <div>
-                <BaseButton type="submit">Send Message</BaseButton>
+                <BaseButton
+                  type="submit"
+                  :class="{ 'opacity-50 pointer-events-none': processing }"
+                  :disabled="processing"
+                >
+                  Send Message
+                </BaseButton>
+
+                <BaseIcon
+                  v-if="processing"
+                  file="SpinnerIcon"
+                  class="text-primary-light ml-4 inline h-6 w-6"
+                />
               </div>
             </div>
 
@@ -105,7 +117,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 const { slug } = useRoute().params;
 
@@ -126,6 +138,7 @@ const form = ref({
 
 const responseMessage = ref(null);
 const responseState = ref(null);
+const processing = ref(false);
 
 function encode(data) {
   return Object.keys(data)
@@ -134,6 +147,8 @@ function encode(data) {
 }
 
 function handleSubmit() {
+  processing.value = true;
+
   fetch("/", {
     method: "post",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -144,19 +159,21 @@ function handleSubmit() {
   })
     .then((res, err) => {
       if (res.status === 200) {
-        responseMessage.value =
-          "Thanks for reaching out! We'll be in contact shortly!";
-        responseState.value = "success";
-
         form.name.value = "";
         form.email.value = "";
         form.phone.value = "";
         form.message.value = "";
+
+        responseMessage.value =
+          "Thanks for reaching out! We'll be in contact shortly!";
+        responseState.value = "success";
       } else {
         responseMessage.value =
           "Oops! Looks like something went wrong. Please try again!";
         responseState.value = "error";
       }
+
+      process.value = false;
     })
     .catch((e) => console.error(e));
 }
