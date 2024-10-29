@@ -69,10 +69,9 @@
           <div
             :class="`z-[52] fixed lg:hidden inset-0 bg-black transition duration-150 ${
               global?.isMobileMenuOpen
-                ? 'bg-opacity-75'
+                ? 'bg-opacity-25'
                 : 'bg-opacity-0 pointer-events-none'
             }`"
-            :inert="!global?.isMobileMenuOpen"
             @keydown.esc="closeMenu"
           >
             <div
@@ -128,7 +127,7 @@
 <script setup>
 import { computed } from "vue";
 
-const global = useGlobal();
+const { global, toggleMobileMenu } = useGlobal();
 
 const route = useRoute();
 const isHomePage = computed(
@@ -155,11 +154,11 @@ watch(route, () => {
 });
 
 async function openMobileMenu() {
-  await toggleMobileMenu(true);
+  toggleMobileMenu(true);
 }
 
 async function closeMenu() {
-  await toggleMobileMenu(false);
+  toggleMobileMenu(false);
 }
 </script>
 

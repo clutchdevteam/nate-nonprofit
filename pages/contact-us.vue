@@ -17,7 +17,14 @@
             </BaseText>
           </div>
 
-          <form class="relative flex flex-col" @submit.prevent="handleSubmit">
+          <form
+            class="relative flex flex-col"
+            name="contact"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            hidden
+            @submit.prevent="handleSubmit"
+          >
             <input
               class="hidden"
               type="hidden"

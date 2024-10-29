@@ -18,5 +18,7 @@ const globalData = await useAsyncStoryblok("global", {
   version: process.env.VERSION,
 });
 
-setGlobals(globalData.value.content);
+if (globalData.value) {
+  setGlobals(globalData.value.content);
+}
 </script>

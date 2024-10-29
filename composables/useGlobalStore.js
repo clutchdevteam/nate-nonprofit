@@ -13,9 +13,9 @@ export function useGlobal() {
     },
   }));
 
-  function toggleMobileMenu(isMenuOpen) {
+  const toggleMobileMenu = (isMenuOpen) => {
     global.value.isMobileMenuOpen = isMenuOpen;
-  }
+  };
 
   function toggleModal(isModalOpen) {
     global.value.pageHasModalOpen = isModalOpen;
