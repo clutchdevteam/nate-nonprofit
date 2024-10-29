@@ -159,10 +159,10 @@ function handleSubmit() {
   })
     .then((res, err) => {
       if (res.status === 200) {
-        form.name.value = "";
-        form.email.value = "";
-        form.phone.value = "";
-        form.message.value = "";
+        form.value.name = "";
+        form.value.email = "";
+        form.value.phone = "";
+        form.value.message = "";
 
         responseMessage.value =
           "Thanks for reaching out! We'll be in contact shortly!";
