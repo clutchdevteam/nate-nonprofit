@@ -1,6 +1,6 @@
 <template>
   <section class="base-wrapper">
-    <BaseTwoCol class="my-24 lg:my-36">
+    <BaseTwoCol class="my-20 lg:my-24">
       <template v-slot:left>
         <div class="relative block lg:hidden">
           <BaseImage :src="blok.image.filename" :alt="blok.image.alt" />

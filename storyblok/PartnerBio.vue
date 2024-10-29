@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="blok.imageRight"
-    class="base-wrapper my-24 lg:my-36 grid lg:grid-cols-3 lg:gap-20"
+    class="base-wrapper my-20 lg:my-24 grid lg:grid-cols-3 lg:gap-20"
   >
     <BaseImage
       class="mb-6 lg:mb-0 col-span-1 lg:order-last"
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <div v-else class="base-wrapper my-24 lg:my-36 grid lg:grid-cols-3 lg:gap-20">
+  <div v-else class="base-wrapper my-20 lg:my-24 grid lg:grid-cols-3 lg:gap-20">
     <BaseImage
       class="mb-6 lg:mb-0 col-span-1"
       :src="blok.image.filename"

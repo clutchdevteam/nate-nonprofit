@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <label class="text-sm mb-2" :for="id">
+    <label class="text-sm mb-2">
       <slot>Select an option</slot> <span v-if="isRequired">*</span>
     </label>
 
@@ -23,30 +23,27 @@
 </template>
 
 <script>
-  export default {
-    inheritAttrs: false,
-    props: {
-      options: {
-        type: Array,
-        required: true,
-      },
-      isRequired: {
-        type: Boolean,
-        default: false,
-      },
-      disabled: {
-        type: Boolean,
-        default: false,
-      },
+export default {
+  inheritAttrs: false,
+  props: {
+    options: {
+      type: Array,
+      required: true,
     },
-    computed: {
-      ui() {
-        return this._uid
-      },
-      listeners() {
-        const { input, ...listeners } = this.$listeners
-        return listeners
-      },
+    isRequired: {
+      type: Boolean,
+      default: false,
     },
-  }
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  computed: {
+    listeners() {
+      const { input, ...listeners } = this.$listeners;
+      return listeners;
+    },
+  },
+};
 </script>

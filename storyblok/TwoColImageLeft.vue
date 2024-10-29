@@ -1,5 +1,5 @@
 <template>
-  <section class="base-wrapper my-24 lg:my-36">
+  <section class="base-wrapper my-20 lg:my-24">
     <BaseTwoCol>
       <template v-slot:left>
         <div class="relative">

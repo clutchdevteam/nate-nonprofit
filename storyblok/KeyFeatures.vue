@@ -1,5 +1,5 @@
 <template>
-  <section class="base-wrapper lg:grid grid-cols-3 gap-12 my-24 lg:my-36">
+  <section class="base-wrapper lg:grid grid-cols-3 gap-12 my-20 lg:my-24">
     <Feature
       v-for="feature in blok.features"
       :key="feature._uid"

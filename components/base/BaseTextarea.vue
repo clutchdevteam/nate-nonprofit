@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <label class="text-sm mb-2 font-bold text-primary-dark" :for="id">
+    <label class="text-sm mb-2 font-bold text-primary-dark">
       <slot /> <span v-if="required">*</span>
     </label>
 
@@ -10,41 +10,55 @@
       :placeholder="placeholder"
       :required="required"
       :rows="rows"
-      v-on="listeners"
-      @input="$emit('input', $event.target.value)"
+      v-bind="$attrs"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>
 </template>
 
-<script>
-  export default {
-    inheritAttrs: false,
-    model: {
-      prop: 'value',
-      event: 'input',
+<script setup>
+defineProps({
+  modelValue: {
+    type: String,
+    default: "",
+  },
+  type: {
+    type: String,
+    default: "text",
+  },
+  placeholder: {
+    type: String,
+    default: "",
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  rows: {
+    type: Number,
+    default: 4,
+  },
+  inputType: {
+    type: String,
+    default: "text",
+    validator: (value) => {
+      const validProps = [
+        "text",
+        "email",
+        "tel",
+        "url",
+        "search",
+        "password",
+        "date",
+      ];
+      return validProps.includes(value);
     },
-    props: {
-      rows: {
-        type: Number,
-        default: 4,
-      },
-      placeholder: {
-        type: String,
-        default: '',
-      },
-      required: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    computed: {
-      id() {
-        return this._uid
-      },
-      listeners() {
-        const { input, ...listeners } = this.$listeners
-        return listeners
-      },
-    },
-  }
+  },
+});
+
+defineEmits(["update:modelValue"]);
 </script>

@@ -1,13 +1,13 @@
 <template>
   <header
     :class="`z-[51] absolute w-full flex items-center justify-between ${
-      !isHomePage ? 'shadow-md' : ''
+      !isHomePage ? 'shadow-md bg-white' : ''
     }`"
   >
     <div class="bg-secondary-light p-4 z-50">
       <BaseLink href="/" :inert="global?.isMobileMenuOpen">
         <BaseImage
-          class="w-16 lg:w-20"
+          class="h-10 lg:h-12"
           v-if="logo"
           :src="logo?.filename"
           :alt="logo?.alt"

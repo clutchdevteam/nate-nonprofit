@@ -17,7 +17,11 @@
         {{ blok.text }}
       </h2>
       <div class="flex flex-col items-center">
-        <BaseButton class="w-full" :href="blok.button[0].link.cached_url">
+        <BaseButton
+          class="w-full"
+          v-if="blok.button[0].btnText"
+          :href="blok.button[0].link.cached_url"
+        >
           {{ blok.button[0].btnText }}
         </BaseButton>
       </div>

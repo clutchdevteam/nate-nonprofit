@@ -14,135 +14,134 @@
 </template>
 
 <script>
-  import Swiper, { Navigation, Pagination, A11y } from 'swiper'
+import Swiper, { Navigation, Pagination } from "swiper";
 
-  Swiper.use([Navigation, Pagination, A11y])
+Swiper.use([Navigation, Pagination]);
 
-  /**
-   * A swipeable slider (AKA carousel or slideshow).
-   */
-  export default {
-    props: {
-      /** The active slide index. */
-      activeIndex: {
-        type: Number,
-        default: 0,
-      },
-      /** The number of slides per view. If not set, it will be determined automatically based on the slides’ width. */
-      slidesPerView: {
-        type: Number,
-        default: 1,
-      },
-      /** Whether the slider has navigation (previous and next slide) buttons. */
-      hasNavigation: {
-        type: Boolean,
-        default: false,
-      },
-      /** Whether the slider has pagination (dots indicating the selected slide and the total number of slides). */
-      hasPagination: {
-        type: Boolean,
-        default: false,
-      },
+/**
+ * A swipeable slider (AKA carousel or slideshow).
+ */
+export default {
+  props: {
+    /** The active slide index. */
+    activeIndex: {
+      type: Number,
+      default: 0,
     },
-    data() {
-      return {
-        swiper: null,
-        swiperRef: null,
-        prevButtonRef: null,
-        nextButtonRef: null,
-        paginationRef: null,
-        innerActiveIndex: null,
-        slideNodes: [],
-      }
+    /** The number of slides per view. If not set, it will be determined automatically based on the slides’ width. */
+    slidesPerView: {
+      type: Number,
+      default: 1,
     },
-    watch: {
-      activeIndex: {
-        immediate: true,
-        handler() {
-          this.innerActiveIndex = this.activeIndex
-          if (this.swiper) {
-            this.swiper.slideTo(this.innerActiveIndex)
-          }
-        },
-      },
-      slidesPerView() {
+    /** Whether the slider has navigation (previous and next slide) buttons. */
+    hasNavigation: {
+      type: Boolean,
+      default: false,
+    },
+    /** Whether the slider has pagination (dots indicating the selected slide and the total number of slides). */
+    hasPagination: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      swiper: null,
+      swiperRef: null,
+      prevButtonRef: null,
+      nextButtonRef: null,
+      paginationRef: null,
+      innerActiveIndex: null,
+      slideNodes: [],
+    };
+  },
+  watch: {
+    activeIndex: {
+      immediate: true,
+      handler() {
+        this.innerActiveIndex = this.activeIndex;
         if (this.swiper) {
-          this.swiper.params.slidesPerView = this.slidesPerView
+          this.swiper.slideTo(this.innerActiveIndex);
         }
       },
     },
-    mounted() {
-      this.swiper = new Swiper(this.$refs.swiperRef, {
-        initialSlide: this.activeIndex,
-        slidesPerView: this.slidesPerView ?? 'auto',
-        watchOverflow: true,
-        centeredSlides: true,
-        loop: true,
-        navigation: {
-          prevEl: this.$refs.prevButtonRef,
-          nextEl: this.$refs.nextButtonRef,
-        },
-        pagination: {
-          el: this.$refs.paginationRef,
-          clickable: true,
-        },
-      })
-      this.swiper.on('slideChange', () => {
-        this.innerActiveIndex = this.swiper.activeIndex
-        /** Emitted when the active slide changes. */
-        this.$emit('slideChange', this.innerActiveIndex)
-      })
+    slidesPerView() {
+      if (this.swiper) {
+        this.swiper.params.slidesPerView = this.slidesPerView;
+      }
     },
-    async updated() {
-      this.swiper.update()
-    },
-    async beforeDestroy() {
-      this.swiper.destroy()
-    },
-  }
+  },
+  mounted() {
+    this.swiper = new Swiper(this.$refs.swiperRef, {
+      initialSlide: this.activeIndex,
+      slidesPerView: this.slidesPerView ?? "auto",
+      watchOverflow: true,
+      centeredSlides: true,
+      loop: true,
+      navigation: {
+        prevEl: this.$refs.prevButtonRef,
+        nextEl: this.$refs.nextButtonRef,
+      },
+      pagination: {
+        el: this.$refs.paginationRef,
+        clickable: true,
+      },
+    });
+    this.swiper.on("slideChange", () => {
+      this.innerActiveIndex = this.swiper.activeIndex;
+      /** Emitted when the active slide changes. */
+      this.$emit("slideChange", this.innerActiveIndex);
+    });
+  },
+  async updated() {
+    this.swiper.update();
+  },
+  async beforeDestroy() {
+    this.swiper.destroy();
+  },
+};
 </script>
 
 <style lang="postcss">
-  @import 'swiper/swiper-bundle.css';
+@import "swiper/swiper-bundle.css";
 
-  /* 
-  &-pagination {
-    @apply bottom-0 mb-2 flex w-auto p-1 h-4;
+&-pagination {
+  @apply bottom-0 mb-2 flex w-auto p-1 h-4;
 
-    left: 50%;
-    transform: translateX(-50%);
+  left: 50%;
+  transform: translateX(-50%);
 
-    &-bullet {
-      @apply my-0 bg-primary-dark opacity-100;
+  &-bullet {
+    @apply my-0 bg-primary-dark opacity-100;
 
-      &-active {
-        @apply bg-black;
-      }
+    &-active {
+      @apply bg-black;
     }
   }
+}
 
-  &-navigation {
-    @apply static;
+&-navigation {
+  @apply static;
+}
+
+&-button-prev,
+&-button-next {
+  @apply rounded-sm;
+
+  &::after {
+    @apply text-xl;
   }
 
-  &-button-prev,
-  &-button-next {
-    @apply rounded-sm;
-
-    &::after {
-      @apply text-xl;
-    }
-
-    &.swiper-button-disabled {
-      @apply hidden;
-    }
+  &.swiper-button-disabled {
+    @apply hidden;
   }
+}
 
-  &-button-prev {
-    @apply absolute left-0 -mt-16 -ml-9 text-black h-10 w-10;
-  }
+&-button-prev {
+  @apply absolute left-0 -mt-16 -ml-9 text-black h-10 w-10;
+}
 
-  &-button-next {
-    @apply absolute right-0 -mt-16 -mr-9 text-black h-10 w-10;
-  } */
+&-button-next {
+  @apply absolute right-0 -mt-16 -mr-9 text-black h-10 w-10;
+}
 </style>

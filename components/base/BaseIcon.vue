@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="file"
+    :is="iconComponent"
     role="img"
     focusable="false"
     :aria-label="alt"
@@ -27,5 +27,26 @@ const props = defineProps({
     type: String,
     required: true,
   },
+});
+
+const iconComponent = computed(() => {
+  switch (props.file) {
+    case "AddressIcon":
+      return AddressIcon;
+    case "BookIcon":
+      return BookIcon;
+    case "CloseIcon":
+      return CloseIcon;
+    case "MenuIcon":
+      return MenuIcon;
+    case "PhoneIcon":
+      return PhoneIcon;
+    case "PersonIcon":
+      return PersonIcon;
+    case "PeopleIcon":
+      return PeopleIcon;
+    case "QuotesIcon":
+      return QuotesIcon;
+  }
 });
 </script>
