@@ -5,7 +5,6 @@
     </label>
 
     <textarea
-      :id="id"
       class="border border-gray-300 rounded-md px-2 py-1"
       :placeholder="placeholder"
       :required="required"

@@ -142,7 +142,6 @@ const props = defineProps({
   },
   logo: {
     type: Object,
-    required: true,
     default: () => {},
   },
   contact: {
