@@ -78,7 +78,7 @@
                   : 'text-red-700'
               } text-sm absolute bottom-0 mb-[-42px]`"
             >
-              {{ this.responseMessage }}
+              {{ responseMessage }}
             </p>
           </form>
         </div>
