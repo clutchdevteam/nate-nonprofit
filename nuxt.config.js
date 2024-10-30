@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 export default defineNuxtConfig({
+  ssr: process.env.NUXT_IS_PREVIEW ? false : true,
   compatibilityDate: "10-28-2024",
   css: [
     "@/assets/css/roboto.css",
@@ -11,7 +12,7 @@ export default defineNuxtConfig({
     [
       "@storyblok/nuxt",
       {
-        accessToken: process.env.STORYBLOK_API_KEY,
+        accessToken: process.env.NUXT_STORYBLOK_API_KEY,
         apiOptions: {
           region: "us", // Set 'US" if your space is created in US region (EU default)
         },
@@ -20,13 +21,20 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "nuxt-svgo",
   ],
+  runtimeConfig: {
+    public: {
+      version: process.env.NUXT_VERSION,
+      isPreview: process.env.NUXT_IS_PREVIEW || false,
+    },
+  },
   generate: {
     cache: false,
     concurrency: 25,
     fallback: true,
     crawler: false,
     routes: function (callback) {
-      const token = process.env.STORYBLOK_API_KEY;
+      const token = process.env.NUXT_STORYBLOK_API_KEY;
+      const version = process.env.NUXT_IS_PREVIEW ? "draft" : "published";
 
       const ignoreFiles = ["home", "global"];
       const routes = ["/"];
